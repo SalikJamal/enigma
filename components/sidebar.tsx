@@ -14,6 +14,7 @@ import {
     SettingsIcon, 
     VideoIcon 
 } from "lucide-react"
+import { usePathname } from "next/navigation"
 
 const montserrat = Montserrat({ 
     weight: "600", 
@@ -67,6 +68,9 @@ export const routes = [
 
 
 export default function Sidebar() {
+
+    const pathname = usePathname()
+
     return (
         <div
             className="space-y-4 py-4 flex flex-col
@@ -101,10 +105,12 @@ export default function Sidebar() {
                 >
                     {routes.map(route => (
                         <Link
-                            className="text-sm group flex p-3 w-full
+                            className={cn(`text-sm group flex p-3 w-full
                             justify-start font-medium cursor-pointer
                             hover:text-white hover:bg-white/10
-                            rounded-lg transition"
+                            rounded-lg transition`, pathname === route.href ? 
+                            "text-white bg-white/10" : "text-zinc-400"
+                            )}
                             href={route.href}
                             key={route.href}
                         >
