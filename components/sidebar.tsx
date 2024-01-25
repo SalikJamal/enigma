@@ -1,70 +1,16 @@
 'use client'
 
-// import { routes } from "@/lib/data" // WHY DOES THIS NOT WORK
+import { routes } from "@/lib/data" // WHY DOES THIS NOT WORK
 import { cn } from "@/lib/utils"
 import { Montserrat } from "next/font/google"
 import Image from "next/image"
 import Link from "next/link"
-import { 
-    CodeIcon, 
-    ImageIcon, 
-    LayoutDashboard, 
-    MessageSquare, 
-    MusicIcon, 
-    SettingsIcon, 
-    VideoIcon 
-} from "lucide-react"
 import { usePathname } from "next/navigation"
 
 const montserrat = Montserrat({ 
     weight: "600", 
     subsets: ["latin-ext"] 
 })
-
-export const routes = [
-    {
-        label: "Dashboard",
-        icon: LayoutDashboard,
-        href: "/dashboard",
-        color: "text-sky-500"
-    },
-    {
-        label: "Conversation",
-        icon: MessageSquare,
-        href: "/conversation",
-        color: "text-violet-500"
-    },
-    {
-        label: "Image Generation",
-        icon: ImageIcon,
-        href: "/image",
-        color: "text-pink-700"
-    },
-    {
-        label: "Video Generation",
-        icon: VideoIcon,
-        href: "/video",
-        color: "text-orange-700"
-    },
-    {
-        label: "Music Generation",
-        icon: MusicIcon,
-        href: "/music",
-        color: "text-emerald-700"
-    },
-    {
-        label: "Code Generation",
-        icon: CodeIcon,
-        href: "/code",
-        color: "text-green-700"
-    },
-    {
-        label: "Settings",
-        icon: SettingsIcon,
-        href: "/settings",
-        color: "text-white"
-    }
-] as const
 
 
 export default function Sidebar() {
@@ -92,6 +38,8 @@ export default function Sidebar() {
                             fill
                             alt="Logo"
                             src="/logo.png"
+                            sizes="100%"
+                            priority
                         />
                     </div>
                     <h1
