@@ -9,9 +9,16 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-
+import axios from 'axios'
+import { useRouter } from "next/navigation"
+import { useState } from "react"
+import type { IChatCompletionMessageParam } from "@/lib/type"
+  
 
 export default function Conversation() {
+
+    const [messages, setMessages] = useState<IChatCompletionMessageParam[]>([])
+    const router = useRouter()
 
     const form = useForm<z.infer<typeof conversationSchema>>({
         resolver: zodResolver(conversationSchema),
@@ -23,7 +30,29 @@ export default function Conversation() {
     const isLoading = form.formState.isSubmitting
 
     const onSubmit = async (values: z.infer<typeof conversationSchema>) => {
-        console.log(values)
+        try {
+
+            const userMessage = {
+                role: "user",
+                content: values.prompt
+            }
+
+            const newMessages = [...messages, userMessage]
+
+            const response = await axios.post('/api/conversation', {
+                messages: newMessages
+            })
+
+            setMessages((current) => [...current, response.data])
+
+            form.reset()
+
+        } catch(err: any) {
+            // TODO: Open Pro Modal
+            console.log(err)
+        } finally {
+
+        }
     }
 
     return (
@@ -71,7 +100,13 @@ export default function Conversation() {
 
 
                 <div className="space-y-4 mt-4">
-                    Messages Content
+                    <div className="flex flex-col-reverse gap-y-4">
+                        {messages.map((message) => (
+                            <div key={message.role}>
+                                {message.content}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

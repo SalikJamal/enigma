@@ -1,3 +1,8 @@
 export interface IReactChildren {
     children: React.ReactNode;
 }
+
+export interface IChatCompletionMessageParam {
+    role: string;
+    content: string;
+}
