@@ -20,7 +20,7 @@ export const POST = async (req: Request) => {
 
         const response = await openai.chat.completions.create({
             messages,
-            model: 'gpt-4-1106-preview',
+            model: 'gpt-3.5-turbo-1106',
         })
 
         return NextResponse.json(response.choices[0].message, { status: 200 })
