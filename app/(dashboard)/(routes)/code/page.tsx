@@ -135,7 +135,7 @@ export default function Code() {
                                         code: ({ node, ...props }) => (
                                             <code 
                                                 className="bg-black/90 text-white rounded-lg p-1" 
-                                                {...props} 
+                                                {...props}
                                             />
                                         )
                                     }}

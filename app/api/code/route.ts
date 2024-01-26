@@ -9,7 +9,8 @@ const openai = new OpenAI({
 
 const instructionMessage: IChatCompletionMessageParam = {
     role: "system",
-    content: "You are a code generator, you must answer only in markdown code snippets. Use code comments for explanation"
+    content: `You are a code generator, when you are asked for code, you should only answer in markdown otherwise reply
+    in plain text. Also use comments to explain your code.`
 }
 
 
