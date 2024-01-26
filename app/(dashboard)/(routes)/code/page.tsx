@@ -1,7 +1,7 @@
 'use client'
 
 import Heading from "@/components/heading"
-import { MessageSquare } from "lucide-react"
+import { CodeIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import * as z from 'zod'
 import { conversationSchema } from "@/lib/schemas"
@@ -18,9 +18,10 @@ import Loader from "@/components/loader"
 import { cn } from "@/lib/utils"
 import UserAvatar from "@/components/user-avatar"
 import BotAvatar from "@/components/bot-avatar"
+import Markdown from 'react-markdown'
   
 
-export default function Conversation() {
+export default function Code() {
 
     const [messages, setMessages] = useState<IChatCompletionMessageParam[]>([])
     const router = useRouter()
@@ -37,14 +38,14 @@ export default function Conversation() {
     const onSubmit = async (values: z.infer<typeof conversationSchema>) => {
         try {
 
-            const userMessage = {
+            const userMessage: IChatCompletionMessageParam = {
                 role: "user",
                 content: values.prompt
             }
 
             const newMessages = [...messages, userMessage]
 
-            const response = await axios.post('/api/conversation', {
+            const response = await axios.post('/api/code', {
                 messages: newMessages
             })
 
@@ -63,11 +64,11 @@ export default function Conversation() {
     return (
         <div>
             <Heading 
-                title="Conversation"
-                description="Our most advanced conversation model."
-                icon={MessageSquare}
-                iconColor="text-violet-500"
-                bgColor="bg-violet-500/10"
+                title="Code Generation"
+                description="Generate code using descriptive text."
+                icon={CodeIcon}
+                iconColor="text-green-700"
+                bgColor="bg-green-700/10"
             />
 
             <div className="px-4 lg:px-8">
@@ -85,7 +86,7 @@ export default function Conversation() {
                                             <Input
                                                 className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                                                 disabled={isLoading}
-                                                placeholder="How do I calculate the radius of a circle?"
+                                                placeholder="How to center a div?"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -117,13 +118,30 @@ export default function Conversation() {
                         />
                     )}
                     <div className="flex flex-col-reverse gap-y-4">
-                        {messages.map((message) => (
+                        {messages.map((message, index) => (
                             <div
                                 className={cn("p-8 w-full flex items-start gap-x-8 rounded-lg", message.role === "user" ? "bg-white border border-black/10" : "bg-muted")} 
-                                key={message.content}
+                                key={index}
                             >
                                 {message.role === "user" ? <UserAvatar /> : <BotAvatar />}
-                                <p className="text-sm">{message.content}</p>
+                                <Markdown 
+                                    className="text-sm overflow-hidden leading-7"
+                                    components={{
+                                        pre: ({ node, ...props }) => (
+                                            <div className="overflow-auto w-full my-2 bg-black/90 text-white p-2 rounded-lg">
+                                                <pre {...props} />
+                                            </div>
+                                        ),
+                                        code: ({ node, ...props }) => (
+                                            <code 
+                                                className="bg-black/90 text-white rounded-lg p-1" 
+                                                {...props} 
+                                            />
+                                        )
+                                    }}
+                                >
+                                    {message.content || ""}
+                                </Markdown>
                             </div>
                         ))}
                     </div>
