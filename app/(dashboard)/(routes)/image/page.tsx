@@ -1,7 +1,7 @@
 'use client'
 
 import Heading from "@/components/heading"
-import { ImageIcon } from "lucide-react"
+import { Download, DownloadIcon, ImageIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import * as z from 'zod'
 import { amountOptions, imageSchema, resolutionOptions } from "@/lib/schemas"
@@ -16,6 +16,8 @@ import Empty from "@/components/empty"
 import Loader from "@/components/loader"
 import { cn } from "@/lib/utils"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Card, CardFooter } from "@/components/ui/card"
+import NextImage from "next/image"
   
 
 export default function Image() {
@@ -40,8 +42,13 @@ export default function Image() {
             setImages([])
             const response = await axios.post('/api/image', values)
 
-            const urls = response.data.map((image: { url: string }) => image.url)
-            setImages(urls)
+            if(response.data > 1) {
+                const urls = response.data.map((image: { url: string }) => image.url)
+                setImages(urls)
+            } else {
+                setImages([response.data])
+            }
+            
 
             form.reset()
 
@@ -175,8 +182,32 @@ export default function Image() {
                             label="No images generated."
                         />
                     )}
-                    <div>
-                        Images will be rendered here.
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-8">
+                        {images.map((src) => (
+                            <Card
+                                className="rounded-lg overflow-hidden"
+                                key={src}
+                            >
+                                <div className="relative aspect-square">
+                                    <NextImage 
+                                        alt="Image"
+                                        src={src}
+                                        fill
+                                    />
+                                </div>
+                                <CardFooter className="p-2">
+                                    <Button
+                                        className="w-full"
+                                        variant="secondary"
+                                        onClick={() => window.open(src)}
+                                    >
+                                        <Download className="h-4 w-4 mr-2">
+                                            Download
+                                        </Download>
+                                    </Button>
+                                </CardFooter>
+                            </Card>
+                        ))}
                     </div>
                 </div>
             </div>
