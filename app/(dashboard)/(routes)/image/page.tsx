@@ -42,14 +42,9 @@ export default function Image() {
             setImages([])
             const response = await axios.post('/api/image', values)
 
-            if(response.data > 1) {
-                const urls = response.data.map((image: { url: string }) => image.url)
-                setImages(urls)
-            } else {
-                setImages([response.data])
-            }
+            const urls = response.data.map((image: { url: string }) => image.url)
+            setImages(urls)
             
-
             form.reset()
 
         } catch(err: any) {
@@ -193,6 +188,8 @@ export default function Image() {
                                         alt="Image"
                                         src={src}
                                         fill
+                                        sizes="100%"
+                                        priority
                                     />
                                 </div>
                                 <CardFooter className="p-2">
