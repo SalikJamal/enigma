@@ -6,7 +6,6 @@ import { MAX_FREE_COUNTS } from "@/lib/constants"
 export const increaseAPILimit = async () => {
 
     const { userId } = auth()
-
     if(!userId) return
 
     const userAPILimit = await prismadb.userAPILimit.findUnique({
@@ -33,17 +32,26 @@ export const increaseAPILimit = async () => {
 export const checkAPILimit = async () => {
 
     const { userId } = auth()
-
     if(!userId) return
 
     const userAPILimit = await prismadb.userAPILimit.findUnique({
         where: { userId }
     })
 
-   if(!userAPILimit || userAPILimit.count < MAX_FREE_COUNTS) {
-        return true
-   } else {
-        return false
-   }
+    if(!userAPILimit || userAPILimit.count < MAX_FREE_COUNTS) return true
+    return false
+}
 
+
+export const getAPILimitCount = async () => {
+    
+    const { userId } = auth()
+    if(!userId) return 0
+
+    const userAPILimit = await prismadb.userAPILimit.findUnique({
+        where: { userId }
+    })
+
+    if(!userAPILimit) return 0
+    return userAPILimit.count
 }

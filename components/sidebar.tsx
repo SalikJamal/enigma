@@ -5,16 +5,10 @@ import { cn } from "@/lib/utils"
 import { Montserrat } from "next/font/google"
 import Image from "next/image"
 import Link from "next/link"
-import { 
-    CodeIcon, 
-    ImageIcon, 
-    LayoutDashboard, 
-    MessageSquare, 
-    MusicIcon, 
-    SettingsIcon, 
-    VideoIcon 
-} from "lucide-react"
+import { CodeIcon, ImageIcon, LayoutDashboard, MessageSquare, MusicIcon, SettingsIcon, VideoIcon } from "lucide-react"
 import { usePathname } from "next/navigation"
+import FreeCounter from "@/components/free-counter"
+import { IAPILimitProp } from "@/lib/type"
 
 const montserrat = Montserrat({ 
     weight: "600", 
@@ -67,26 +61,19 @@ export const routes = [
 ] as const
 
 
-export default function Sidebar() {
+export default function Sidebar({ APILimitCount }: IAPILimitProp) {
 
     const pathname = usePathname()
 
     return (
-        <div
-            className="space-y-4 py-4 flex flex-col
-            h-full bg-[#111827] text-white"
-        >
-            <div
-                className="px-3 py-2 flex-1"
-            >
+        <div className="space-y-4 py-4 flex flex-col h-full bg-[#111827] text-white">
+            <div className="px-3 py-2 flex-1">
                 <Link 
-                    className="flex items-center pl-3
-                    mb-14"
+                    className="flex items-center pl-3 mb-14"
                     href="/dashboard"
                 >
                     <div
-                        className="relative w-8 h-8
-                        mr-4"
+                        className="relative w-8 h-8 mr-4"
                     >
                         <Image 
                             fill
@@ -96,15 +83,11 @@ export default function Sidebar() {
                             priority
                         />
                     </div>
-                    <h1
-                        className={cn("text-2xl font-bold", montserrat.className)}
-                    >
+                    <h1 className={cn("text-2xl font-bold", montserrat.className)}>
                         Enigma
                     </h1>
                 </Link>
-                <div
-                    className="space-y-1"
-                >
+                <div className="space-y-1">
                     {routes.map(route => (
                         <Link
                             className={cn(`text-sm group flex p-3 w-full
@@ -128,6 +111,9 @@ export default function Sidebar() {
                     ))}
                 </div>
             </div>
+            <FreeCounter 
+                APILimitCount={APILimitCount}
+            />
         </div>
     )
 }
