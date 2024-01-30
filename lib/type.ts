@@ -8,5 +8,5 @@ export interface IChatCompletionMessageParam {
 }
 
 export interface IAPILimitProp {
-    APILimitCount: number;
+    APILimitCount?: number;
 }
