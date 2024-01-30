@@ -4,7 +4,7 @@ import Heading from "@/components/heading"
 import { VideoIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import * as z from 'zod'
-import { conversationSchema } from "@/lib/schemas"
+import { conversationSchema } from "@/lib/formSchemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"

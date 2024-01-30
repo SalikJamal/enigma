@@ -4,7 +4,7 @@ import Heading from "@/components/heading"
 import { Download, DownloadIcon, ImageIcon } from "lucide-react"
 import { useForm } from "react-hook-form"
 import * as z from 'zod'
-import { amountOptions, imageSchema, resolutionOptions } from "@/lib/schemas"
+import { amountOptions, imageSchema, resolutionOptions } from "@/lib/formSchemas"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
