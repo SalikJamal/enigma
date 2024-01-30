@@ -19,12 +19,14 @@ import { cn } from "@/lib/utils"
 import UserAvatar from "@/components/user-avatar"
 import BotAvatar from "@/components/bot-avatar"
 import Markdown from 'react-markdown'
+import { useProModal } from "@/hooks/use-pro-modal"
   
 
 export default function Code() {
 
     const [messages, setMessages] = useState<IChatCompletionMessageParam[]>([])
     const router = useRouter()
+    const proModal = useProModal()
 
     const form = useForm<z.infer<typeof conversationSchema>>({
         resolver: zodResolver(conversationSchema),
@@ -54,8 +56,9 @@ export default function Code() {
             form.reset()
 
         } catch(err: any) {
-            // TODO: Open Pro Modal
-            console.log(err)
+            if(err?.response?.status === 403) {
+                proModal.onOpen()
+            }
         } finally {
             router.refresh()
         }

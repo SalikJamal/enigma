@@ -14,12 +14,14 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import Empty from "@/components/empty"
 import Loader from "@/components/loader"
+import { useProModal } from "@/hooks/use-pro-modal"
   
 
 export default function Video() {
 
     const [video, setVideo] = useState<string>()
     const router = useRouter()
+    const proModal = useProModal()
 
     const form = useForm<z.infer<typeof conversationSchema>>({
         resolver: zodResolver(conversationSchema),
@@ -41,8 +43,9 @@ export default function Video() {
             form.reset()
 
         } catch(err: any) {
-            // TODO: Open Pro Modal
-            console.log(err)
+            if(err?.response?.status === 403) {
+                proModal.onOpen()
+            }
         } finally {
             router.refresh()
         }
