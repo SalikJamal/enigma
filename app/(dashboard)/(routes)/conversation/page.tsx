@@ -56,7 +56,7 @@ export default function Conversation() {
             // TODO: Open Pro Modal
             console.log(err)
         } finally {
-
+            router.refresh()
         }
     }
 

@@ -50,7 +50,7 @@ export default function Image() {
             // TODO: Open Pro Modal
             console.log(err)
         } finally {
-
+            router.refresh()
         }
     }
 

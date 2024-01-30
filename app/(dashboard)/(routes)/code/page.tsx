@@ -57,7 +57,7 @@ export default function Code() {
             // TODO: Open Pro Modal
             console.log(err)
         } finally {
-
+            router.refresh()
         }
     }
 

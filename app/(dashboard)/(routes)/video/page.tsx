@@ -44,7 +44,7 @@ export default function Video() {
             // TODO: Open Pro Modal
             console.log(err)
         } finally {
-
+            router.refresh()
         }
     }
 
