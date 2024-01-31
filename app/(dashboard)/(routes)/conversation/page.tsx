@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils"
 import UserAvatar from "@/components/user-avatar"
 import BotAvatar from "@/components/bot-avatar"
 import { useProModal } from "@/hooks/use-pro-modal"
+import toast from "react-hot-toast"
   
 
 export default function Conversation() {
@@ -38,7 +39,6 @@ export default function Conversation() {
 
     const onSubmit = async (values: z.infer<typeof conversationSchema>) => {
         try {
-
             const userMessage = {
                 role: "user",
                 content: values.prompt
@@ -57,6 +57,8 @@ export default function Conversation() {
         } catch(err: any) {
             if(err?.response?.status === 403) {
                 proModal.onOpen()
+            } else {
+                toast.error("Something went wrong, please try again.")
             }
         } finally {
             router.refresh()

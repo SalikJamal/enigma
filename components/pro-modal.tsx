@@ -6,11 +6,12 @@ import { DialogTitle } from "@radix-ui/react-dialog"
 import { Badge } from "@/components/ui/badge"
 import { routes } from "@/lib/data"
 import { Card } from "@/components/ui/card"
-import { absoluteURL, cn } from "@/lib/utils"
+import { cn } from "@/lib/utils"
 import { Check, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import axios from "axios"
 import { useState } from "react"
+import toast from "react-hot-toast"
 
 
 export default function ProModal() {
@@ -26,7 +27,7 @@ export default function ProModal() {
             const response = await axios.get("/api/stripe")
             window.location.href = response.data.url
         } catch(err) {
-            console.log(err, "STRIPE_CLIENT_ERROR")
+            toast.error("Something went wrong, please try again.")
         } finally {
             setLoading(false)
         }

@@ -20,6 +20,7 @@ import UserAvatar from "@/components/user-avatar"
 import BotAvatar from "@/components/bot-avatar"
 import Markdown from 'react-markdown'
 import { useProModal } from "@/hooks/use-pro-modal"
+import toast from "react-hot-toast"
   
 
 export default function Code() {
@@ -58,6 +59,8 @@ export default function Code() {
         } catch(err: any) {
             if(err?.response?.status === 403) {
                 proModal.onOpen()
+            } else {
+                toast.error("Something went wrong, please try again.")
             }
         } finally {
             router.refresh()

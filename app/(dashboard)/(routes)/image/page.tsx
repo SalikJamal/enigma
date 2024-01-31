@@ -18,6 +18,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardFooter } from "@/components/ui/card"
 import NextImage from "next/image"
 import { useProModal } from "@/hooks/use-pro-modal"
+import toast from "react-hot-toast"
   
 
 export default function Image() {
@@ -51,6 +52,8 @@ export default function Image() {
         } catch(err: any) {
             if(err?.response?.status === 403) {
                 proModal.onOpen()
+            } else {
+                toast.error("Something went wrong, please try again.")
             }
         } finally {
             router.refresh()
