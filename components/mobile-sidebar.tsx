@@ -7,7 +7,7 @@ import Sidebar from "@/components/sidebar"
 import { IAPILimitProp } from "@/lib/type"
 
 
-export default function MobileSidebar({ APILimitCount }: IAPILimitProp) {
+export default function MobileSidebar({ isPro = false, APILimitCount }: IAPILimitProp) {
     return (
         <Sheet>
             <SheetTrigger asChild>
@@ -20,10 +20,13 @@ export default function MobileSidebar({ APILimitCount }: IAPILimitProp) {
                 </Button>
             </SheetTrigger>
             <SheetContent
-                className="w-[300px] p-0 border-r-0"
+                className="w-[290px] p-0 border-r-0"
                 side="left"
             >
-                <Sidebar APILimitCount={APILimitCount} />
+                <Sidebar
+                    isPro={isPro} 
+                    APILimitCount={APILimitCount} 
+                />
             </SheetContent>
         </Sheet>
     )

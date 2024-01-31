@@ -61,7 +61,7 @@ export const routes = [
 ] as const
 
 
-export default function Sidebar({ APILimitCount }: IAPILimitProp) {
+export default function Sidebar({ isPro = false, APILimitCount }: IAPILimitProp) {
 
     const pathname = usePathname()
 
@@ -111,7 +111,8 @@ export default function Sidebar({ APILimitCount }: IAPILimitProp) {
                     ))}
                 </div>
             </div>
-            <FreeCounter 
+            <FreeCounter
+                isPro={isPro}
                 APILimitCount={APILimitCount}
             />
         </div>

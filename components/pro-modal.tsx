@@ -6,15 +6,31 @@ import { DialogTitle } from "@radix-ui/react-dialog"
 import { Badge } from "@/components/ui/badge"
 import { routes } from "@/lib/data"
 import { Card } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
+import { absoluteURL, cn } from "@/lib/utils"
 import { Check, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import axios from "axios"
+import { useState } from "react"
 
 
 export default function ProModal() {
 
+    const [loading, setLoading] = useState(false)
+    
     const proModal = useProModal()
     const servicesOnly = routes.slice(1, 6)
+
+    const onSubscribe = async () => {
+        try {
+            setLoading(true)
+            const response = await axios.get("/api/stripe")
+            window.location.href = response.data.url
+        } catch(err) {
+            console.log(err, "STRIPE_CLIENT_ERROR")
+        } finally {
+            setLoading(false)
+        }
+    }
 
     return (
         <Dialog open={proModal.isOpen} onOpenChange={proModal.onClose}>
@@ -59,6 +75,8 @@ export default function ProModal() {
                         className="w-full"
                         size="lg"
                         variant="premium"
+                        onClick={onSubscribe}
+                        disabled={loading}
                     >
                         Upgrade
                         <Zap className="w-4 h-4 ml-2 fill-white" />
