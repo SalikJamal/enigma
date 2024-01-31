@@ -44,7 +44,7 @@ export default function LandingNavbar() {
                     <Button
                         className="rounded-full" 
                         variant="outline"
-                    >
+                    > 
                         Get Started
                     </Button>
                 </Link>

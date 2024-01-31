@@ -52,3 +52,31 @@ export const routes = [
         bgColor: "bg-gray-700/10"
     }
 ] as const
+
+
+export const testimonials = [
+    {
+        name: "Alice Johnson",
+        avatar: "AJ",
+        title: "Product Manager",
+        description: "Great product! It has significantly improved our workflow."
+    },
+    {
+        name: "Bob Smith",
+        avatar: "BS",
+        title: "Marketing Specialist",
+        description: "I'm impressed with the functionality and ease of use."
+    },
+    {
+        name: "Charlie Brown",
+        avatar: "CB",
+        title: "UX Designer",
+        description: "This application has exceeded my expectations. Kudos to the team!"
+    },
+    {
+        name: "Diana Clark",
+        avatar: "DC",
+        title: "Data Analyst",
+        description: "Amazing tool! It has streamlined our data analysis process."
+    },  
+] as const;
