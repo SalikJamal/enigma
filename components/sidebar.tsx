@@ -61,7 +61,7 @@ export const routes = [
 ] as const
 
 
-export default function Sidebar({ isPro = false, APILimitCount }: IAPILimitProp) {
+export default function Sidebar({ isPro = false, APILimitCount = 0 }: IAPILimitProp) {
 
     const pathname = usePathname()
 

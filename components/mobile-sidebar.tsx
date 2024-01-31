@@ -7,7 +7,7 @@ import Sidebar from "@/components/sidebar"
 import { IAPILimitProp } from "@/lib/type"
 
 
-export default function MobileSidebar({ isPro = false, APILimitCount }: IAPILimitProp) {
+export default function MobileSidebar({ isPro = false, APILimitCount = 0 }: IAPILimitProp) {
     return (
         <Sheet>
             <SheetTrigger asChild>
